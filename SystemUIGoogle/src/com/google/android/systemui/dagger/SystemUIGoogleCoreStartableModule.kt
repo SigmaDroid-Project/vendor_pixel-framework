@@ -28,7 +28,7 @@ import com.android.systemui.CoreStartable
 import com.android.systemui.dagger.qualifiers.PerUser
 import com.android.systemui.dreams.AssistantAttentionMonitor
 import com.android.systemui.dreams.DreamMonitor
-import com.android.systemui.dreams.homecontrols.HomeControlsDreamStartable
+import com.android.systemui.dreams.homecontrols.system.HomeControlsDreamStartable
 import com.android.systemui.globalactions.GlobalActionsComponent
 import com.android.systemui.keyboard.KeyboardUI
 import com.android.systemui.keyboard.PhysicalKeyboardCoreStartable
@@ -49,14 +49,14 @@ import com.android.systemui.power.PowerUI
 import com.android.systemui.reardisplay.RearDisplayDialogController
 import com.android.systemui.recents.Recents
 import com.android.systemui.ScreenDecorations
+import com.android.systemui.SliceBroadcastRelayHandler
 import com.android.systemui.settings.MultiUserUtilsModule
 import com.android.systemui.shortcut.ShortcutKeyDispatcher
-import com.android.systemui.SliceBroadcastRelayHandler
+import com.android.systemui.smartpixels.SmartPixelsReceiver
 import com.android.systemui.statusbar.gesture.GesturePointerEventListener
 import com.android.systemui.statusbar.ImmersiveModeConfirmation
+import com.android.systemui.statusbar.notification.headsup.StatusBarHeadsUpChangeListener
 import com.android.systemui.statusbar.notification.InstantAppNotifier
-import com.android.systemui.statusbar.phone.ScrimController
-import com.android.systemui.statusbar.phone.StatusBarHeadsUpChangeListener
 import com.android.systemui.stylus.StylusUsiPowerStartable
 import com.android.systemui.temporarydisplay.chipbar.ChipbarCoordinator
 import com.android.systemui.theme.ThemeOverlayController
@@ -77,7 +77,6 @@ import dagger.Module
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 
-import com.android.systemui.smartpixels.SmartPixelsReceiver;
 
 /**
  * Collection of {@link CoreStartable}s that should be run on AOSP.
@@ -299,11 +298,6 @@ abstract class SystemUIGoogleCoreStartableModule {
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     @ClassKey(KeyguardViewConfigurator::class)
     abstract fun bindKeyguardViewConfigurator(impl: KeyguardViewConfigurator): CoreStartable
-
-    @Binds
-    @IntoMap
-    @ClassKey(ScrimController::class)
-    abstract fun bindScrimController(impl: ScrimController): CoreStartable
 
     @Binds
     @IntoMap
